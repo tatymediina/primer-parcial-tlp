@@ -1,3 +1,5 @@
+// ! Singleton
+
 class Configuracion {
   private static instancia: Configuracion;
 
@@ -10,6 +12,8 @@ class Configuracion {
 
   set();
 }
+
+// ! Adapter
 
 interface IInventario {
   agregarEquipos(): void;
@@ -38,6 +42,8 @@ const invViejo = new InventarioViejo();
 const adaptador = new AdaptadorInventario(invViejo);
 adaptador.agregarEquipos("Router Cisco", "");
 
+
+// ! Observador:completado
 interface Observador {
   update(message: string): void;
 }
@@ -74,6 +80,7 @@ const equipo = new Equipo("Notebook Hp", "Portatil", "Disponible");
 equipo.agregarObservador(soporte)
 equipo.cambiarEstado("En reparación")
 
+// ! Factory: completado
 
 class Servidor{
   constructor(public tipo:string, public marca:string, public ram:string, public procesador:string){}
