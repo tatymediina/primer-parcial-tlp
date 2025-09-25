@@ -76,8 +76,24 @@ equipo.cambiarEstado("En reparación")
 
 
 class Servidor{
-  constructor(public tipo:string, public marca:string, public ram:string){}
+  constructor(public tipo:string, public marca:string, public ram:string, public procesador:string){}
+  public detalles(){
+    return `Tipo ${this.tipo}, Nombre: ${this.marca}, RAM: ${this.ram}, Procesador: ${this.procesador}`
+  }
 
 }
 class EquipoFactory {
+  crearEquipo(tipo:string, marca:string, ram:string, procesador:string){
+    if(tipo=="Servidor"){
+      return new Servidor(tipo, marca, ram, procesador)
+    } else {
+      console.log("Objeto no soportado")
+    }
+
+  }
 }
+
+
+const factory = new EquipoFactory()
+const server = factory.crearEquipo("Servidor", "Dell PowerEdge", "32gb", "Xeon")
+console.log(server?.detalles())
