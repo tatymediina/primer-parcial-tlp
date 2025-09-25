@@ -1,44 +1,83 @@
-class Configuracion{
-  private static instancia: Configuracion
+class Configuracion {
+  private static instancia: Configuracion;
 
-  static obtenerInstancia(instancia: Configuracion){
-    if(!Configuracion.instancia){
-      this.instancia = new Configuracion()
+  static obtenerInstancia(instancia: Configuracion) {
+    if (!Configuracion.instancia) {
+      this.instancia = new Configuracion();
     }
-    return this.instancia
+    return this.instancia;
   }
 
-  set()
+  set();
 }
 
 interface IInventario {
-agregarEquipos(): void;
+  agregarEquipos(): void;
 }
 
 class InventarioViejo {
-  private equipos: {nombre:string}[] = []
-  public addItem(nombre:string): void {
-    this.equipos.push({nombre})
+  private equipos: { nombre: string }[] = [];
+  public addItem(nombre: string): void {
+    this.equipos.push({ nombre });
   }
 }
 
+class AdaptadorInventario {
+  private adapter: InventarioViejo;
 
+  constructor(adapter: InventarioViejo) {
+    this.adapter = adapter;
+  }
 
-class AdaptadorInventario{
-private adapter: InventarioViejo;
-
-constructor(adapter: InventarioViejo) {
-this.adapter = adapter;
+  agregarEquipos(nombre: string): void {
+    this.adapter.addItem(nombre);
+  }
 }
 
-agregarEquipos(nombre:string): void {
-  this.adapter.addItem(nombre)
+const invViejo = new InventarioViejo();
+const adaptador = new AdaptadorInventario(invViejo);
+adaptador.agregarEquipos("Router Cisco", "");
+
+interface Observador {
+  update(message: string): void;
 }
+class Soporte implements Observador {
+  update(message: string): void {
+    console.log(`Soporte Notificado ${message}`);
+  }
 }
 
-const invViejo = new InventarioViejo()
-const adaptador =  new AdaptadorInventario(invViejo)
-adaptador.agregarEquipos("Router Cisco", "" )
+class Equipo {
+  private observadores: Observador[] = [];
+  constructor(
+    public marca: string,
+    public tipo: string,
+    private status: string
+  ) {}
+
+  agregarObservador(o: Observador) {
+    this.observadores.push(o);
+  }
+
+  cambiarEstado(nuevoEstado: string) {
+    this.status = nuevoEstado;
+    this.notificar();
+  }
+
+  notificar() {
+    this.observadores.forEach((o) => o.update(this.status));
+  }
+}
+
+const soporte = new Soporte();
+const equipo = new Equipo("Notebook Hp", "Portatil", "Disponible");
+equipo.agregarObservador(soporte)
+equipo.cambiarEstado("En reparación")
 
 
+class Servidor{
+  constructor(public tipo:string, public marca:string, public ram:string){}
 
+}
+class EquipoFactory {
+}
