@@ -1,0 +1,22 @@
+{
+  "name": "ts-patrones-proyecto-base",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "demo:srp": "tsx src/",
+    "demo:ocp": "tsx src/",
+    "demo:lsp": "tsx src/",
+    "demo:isp": "tsx src/",
+    "demo:dip": "tsx src/"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "tsx": "^4.20.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "typescript": "^5.6.2"
+  }
+}
