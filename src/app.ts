@@ -16,7 +16,9 @@ agregarEquipos(): void;
 }
 
 class InventarioViejo {
+  private equipos: {nombre:string}[] = []
   public addItem(nombre:string): void {
+    this.equipos.push({nombre})
   }
 }
 
@@ -36,7 +38,7 @@ agregarEquipos(nombre:string): void {
 
 const invViejo = new InventarioViejo()
 const adaptador =  new AdaptadorInventario(invViejo)
-adaptador.agregarEquipos("Router Cisco", "")
+adaptador.agregarEquipos("Router Cisco", "" )
 
 
 
